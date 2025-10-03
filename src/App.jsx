@@ -6,6 +6,7 @@ import "./App.css";
 
 import Home from "./components/home";
 import DisplayPuzzle from "./components/DisplayPuzzle";
+import Leaderboards from "./components/Leaderboards";
 
 function App() {
   return <AppContent />;
@@ -28,8 +29,8 @@ function AppContent() {
             </Link>
           </li>
           <li>
-            <Link to="/leaderboard" onClick={() => setIsOpen(false)}>
-              Leaderboard
+            <Link to="/leaderboards" onClick={() => setIsOpen(false)}>
+              Leaderboards
             </Link>
           </li>
         </ul>
@@ -37,7 +38,18 @@ function AppContent() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/leaderboard" element={<DisplayPuzzle />} />
+        <Route path="/leaderboards" element={<Leaderboards />} />
+
+        <Route
+          path="/puzzle1"
+          element={<DisplayPuzzle image="/bruegel.jpg" />}
+        />
+        <Route
+          path="/puzzle2"
+          element={<DisplayPuzzle image="/bruegel2.jpg" />}
+        />
+
+        <Route path="/puzzle3" element={<DisplayPuzzle image="/const.jpg" />} />
       </Routes>
 
       <footer>

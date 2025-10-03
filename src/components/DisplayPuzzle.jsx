@@ -1,10 +1,10 @@
 import DisplayCursorCircle from "./DisplayCursorCircle";
 
-function DisplayPuzzle() {
+function DisplayPuzzle({ image }) {
   return (
     <>
       <div className="puzzle">
-        <img src="/alex.jpg" alt="" className="puzzle-img" />
+        <img src={image} alt="" className="puzzle-img" />
       </div>
       <DisplayCursorCircle />
     </>

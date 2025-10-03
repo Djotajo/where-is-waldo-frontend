@@ -91,9 +91,9 @@ nav h1 {
 }
 
 .hero {
-  background-image: url("/emile-perron-xrVDYZRGdw4-unsplash.jpg");
-  background-size: cover;
-  background-position: center;
+  /* background-image: url("/emile-perron-xrVDYZRGdw4-unsplash.jpg"); */
+  /* background-size: cover; */
+  /* background-position: center; */
   height: 95vh;
   color: white;
   display: flex;
@@ -121,3 +121,72 @@ nav h1 {
   border: 1px dotted white;
   position: absolute;
 }
+
+.puzzles-div {
+  display: flex;
+  width: 80%;
+  height: 300px;
+  /* gap: 2em; */
+  justify-content: space-around;
+}
+
+.leaderboards-full-page {
+  height: 95vh;
+  color: white;
+  display: flex;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding-top: 15vh;
+}
+
+.leaderboards {
+  display: flex;
+  width: 80%;
+  height: 300px;
+  justify-content: space-around;
+  color: black;
+  align-items: flex-start;
+  gap: 1em;
+}
+
+.leaderboard {
+  border: 1px solid black;
+  width: 100%;
+}
+
+.puzzles-div :first-child {
+  background-image: url("/bruegel.jpg");
+  background-size: cover;
+  width: 30%;
+  height: 300px;
+  height: auto;
+  z-index: 5;
+}
+
+.puzzles-div :nth-child(2) {
+  background-image: url("/bruegel2.jpg");
+  background-size: cover;
+  width: 30%;
+  height: 300px;
+  height: auto;
+  z-index: 5;
+}
+
+.puzzles-div :last-child {
+  background-image: url("/const.jpg");
+  background-size: cover;
+  width: 30%;
+  height: 300px;
+  height: auto;
+  z-index: 5;
+}
+
+/* .puzzle-preview {
+  background-image: url("/bruegel.jpg");
+  background-size: cover;
+  width: 30%;
+  height: 300px;
+  height: auto;
+  z-index: 5;
+} */
