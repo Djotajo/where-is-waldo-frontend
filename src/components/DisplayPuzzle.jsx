@@ -1,12 +1,64 @@
+import { useEffect, useState, useMemo } from "react";
+import { useParams } from "react-router-dom";
+
 import DisplayCursorCircle from "./DisplayCursorCircle";
 
-function DisplayPuzzle({ image }) {
+function DisplayPuzzle() {
+  const [puzzle, setPuzzle] = useState(null);
+  const { puzzleId } = useParams();
+
+  const imageMap = {
+    test: "/bruegel.jpg",
+    puzzle2: "/bruegel2.jpg",
+    puzzle3: "/const.jpg",
+  };
+
+  useEffect(() => {
+    async function fetchPostData() {
+      const link = "http://localhost:3000";
+      console.log(puzzleId);
+
+      const response = await fetch(`${link}/puzzle/${puzzleId}`);
+      const responseJson = await response.json();
+      console.log(responseJson);
+      setPuzzle(responseJson);
+    }
+
+    fetchPostData();
+  }, [puzzleId]);
+
+  const image = imageMap[puzzleId];
+
+  if (!puzzle) {
+    return <div className="post">Loading or Post not found...</div>;
+  }
+
   return (
     <>
       <div className="puzzle">
         <img src={image} alt="" className="puzzle-img" />
       </div>
-      <DisplayCursorCircle />
+      <DisplayCursorCircle puzzle={puzzle} />
+
+      {/* {post.Comment.map((comment, index) => (
+        <article key={comment.id || index} className="full-post-comment">
+          <header>
+            <cite className="full-post-comment-author">
+              {comment.commentByAuthor
+                ? comment.commentByAuthor.username
+                : comment.commentByUser.username}{" "}
+            </cite>
+            on{" "}
+            <time
+              dateTime={comment.createdAt}
+              className="full-post-comment-date"
+            >
+              {new Date(comment.createdAt).toLocaleDateString()}
+            </time>
+          </header>
+          <p className="full-post-comment-content">{comment.text}</p>
+        </article>
+      ))} */}
     </>
   );
 }

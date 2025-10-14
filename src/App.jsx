@@ -39,17 +39,18 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/leaderboards" element={<Leaderboards />} />
+        <Route path="/puzzle/:puzzleId" element={<DisplayPuzzle />} />
 
-        <Route
-          path="/puzzle1"
+        {/* <Route
+          path="/puzzle/test"
           element={<DisplayPuzzle image="/bruegel.jpg" />}
         />
         <Route
-          path="/puzzle2"
+          path="/puzzle/puzzle2"
           element={<DisplayPuzzle image="/bruegel2.jpg" />}
         />
 
-        <Route path="/puzzle3" element={<DisplayPuzzle image="/const.jpg" />} />
+        <Route path="/puzzle3" element={<DisplayPuzzle image="/const.jpg" />} /> */}
       </Routes>
 
       <footer>

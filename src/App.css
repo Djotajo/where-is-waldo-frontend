@@ -122,6 +122,30 @@ nav h1 {
   position: absolute;
 }
 
+.cursor-square {
+  width: 100px;
+  height: 50px;
+  border: 1px solid white;
+  position: absolute;
+  display: flex;
+}
+
+.cursor-square-image {
+  width: 35%;
+  border: 1px solid white;
+  height: 50px;
+}
+
+.cursor-square-image img {
+  max-width: 100%;
+}
+
+.cursor-square-name {
+  width: 65%;
+  border: 1px solid white;
+  height: 50px;
+}
+
 .puzzles-div {
   display: flex;
   width: 80%;
