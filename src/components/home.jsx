@@ -6,17 +6,17 @@ function Home() {
     <>
       <div className="hero">
         <div className="puzzles-div">
-          <Link to={`/puzzle/test`} className="puzzle-preview"></Link>
-          <Link to={`/puzzle/puzzle2`} className="puzzle-preview"></Link>
+          <Link to={`/puzzle/puzzle01`} className="puzzle-preview"></Link>
+          <Link to={`/puzzle/puzzle02`} className="puzzle-preview"></Link>
           {/* <Link
             to={`http://localhost:3000/puzzle/test`}
             className="puzzle-preview"
           ></Link> */}
 
-          <Link to={`/puzzle/puzzle3`} className="puzzle-preview"></Link>
+          <Link to={`/puzzle/puzzle03`} className="puzzle-preview"></Link>
         </div>
       </div>
-      <DisplayCursorCircle />
+      {/* <DisplayCursorCircle /> */}
     </>
   );
 }

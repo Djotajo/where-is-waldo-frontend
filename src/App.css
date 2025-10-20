@@ -118,12 +118,12 @@ nav h1 {
 .cursor-circle {
   width: 10px;
   height: 10px;
-  border: 1px dotted white;
+  border: 5px dotted white;
   position: absolute;
 }
 
 .cursor-square {
-  width: 100px;
+  width: 160px;
   height: 50px;
   border: 1px solid white;
   position: absolute;
@@ -131,19 +131,26 @@ nav h1 {
 }
 
 .cursor-square-image {
-  width: 35%;
+  /* width: 35%; */
+  width: 100%;
+  width: 50px;
   border: 1px solid white;
   height: 50px;
 }
 
 .cursor-square-image img {
   max-width: 100%;
+  width: 100%;
 }
 
 .cursor-square-name {
-  width: 65%;
-  border: 1px solid white;
+  width: 110px;
+  /* border: 1px solid white; */
   height: 50px;
+  font-weight: 700;
+  align-content: center;
+  text-align: center;
+  background-color: black;
 }
 
 .puzzles-div {
@@ -180,7 +187,7 @@ nav h1 {
 }
 
 .puzzles-div :first-child {
-  background-image: url("/bruegel.jpg");
+  background-image: url("/bruegel1.jpg");
   background-size: cover;
   width: 30%;
   height: 300px;

@@ -8,7 +8,7 @@ function DisplayPuzzle() {
   const { puzzleId } = useParams();
 
   const imageMap = {
-    test: "/bruegel.jpg",
+    puzzle01: "/bruegel1.jpg",
     puzzle2: "/bruegel2.jpg",
     puzzle3: "/const.jpg",
   };
@@ -19,6 +19,9 @@ function DisplayPuzzle() {
       console.log(puzzleId);
 
       const response = await fetch(`${link}/puzzle/${puzzleId}`);
+      // CHANGE WHEN PUZZLES INSERTED IN DB
+      // const response = await fetch(`${link}/puzzle/test`);
+
       const responseJson = await response.json();
       console.log(responseJson);
       setPuzzle(responseJson);
@@ -28,6 +31,8 @@ function DisplayPuzzle() {
   }, [puzzleId]);
 
   const image = imageMap[puzzleId];
+  console.log(window.innerHeight);
+  console.log(window.innerWidth);
 
   if (!puzzle) {
     return <div className="post">Loading or Post not found...</div>;
