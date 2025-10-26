@@ -1,44 +1,31 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function DisplayCursorCircle({ puzzle }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [visible, setVisible] = useState(false);
-  const [characters, setCharacters] = useState(puzzle.characters);
-
-  //   useEffect(() => {
-  //     const handleMouseMove = (event) => {
-  //       setPosition({ x: event.pageX, y: event.pageY });
-  //       setVisible((prev) => !prev);
-  //       console.log(position);
-  //       console.log(characters);
-  //     };
-
-  //     window.addEventListener("click", handleMouseMove);
-
-  //     return () => {
-  //       window.removeEventListener("click", handleMouseMove);
-  //     };
-  //   }, [position]);
+  const [characters, setCharacters] = useState(
+    puzzle.characters.sort((a, b) => Number(a.id) - Number(b.id))
+  );
+  const [guesses, setGuesses] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleMouseClick = (event) => {
       const img = document.querySelector("img"); // or use a ref if you have one
       if (!img) return;
 
-      const rect = img.getBoundingClientRect();
+      if (event.target.closest("button.cursor-square")) return;
 
-      // Coordinates relative to the image
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
+      const rect = event.target.getBoundingClientRect();
+      const x = event.pageX - rect.left - window.scrollX;
+      const y = event.pageY - rect.top - window.scrollY;
 
-      // Update state
+      console.log(characters);
+
       setPosition({ x, y });
 
-      // Toggle visibility or handle whatever logic you want
       setVisible((prev) => !prev);
-
-      console.log("Relative position:", { x, y });
-      console.log("Characters:", characters);
     };
 
     window.addEventListener("click", handleMouseClick);
@@ -49,24 +36,75 @@ function DisplayCursorCircle({ puzzle }) {
     };
   }, [characters]);
 
+  const calculateGuess = (clickPosition, charPosition, index) => {
+    console.log("calculate guess");
+    console.log(clickPosition);
+    console.log(charPosition);
+
+    if (
+      clickPosition.x >= charPosition.x - 15 &&
+      clickPosition.x <= charPosition.x + 15 &&
+      clickPosition.y >= charPosition.y - 15 &&
+      clickPosition.y <= charPosition.y + 15
+    ) {
+      console.log("BINGO");
+
+      setGuesses((prev) => {
+        const newGuesses = [...prev, { index, pos: clickPosition }];
+        if (newGuesses.length === 3) {
+          console.log("TOTAL BINGO");
+
+          //   DODATI FORMU ZA UNOS PODATAKA U LEADERBOARD
+          navigate("/");
+        }
+        return newGuesses;
+      });
+    }
+    return;
+  };
+
   return (
     <>
+      {guesses.map((guess) => (
+        <div
+          key={guess.index}
+          style={{
+            position: "absolute",
+            left: guess.pos.x,
+            top: guess.pos.y,
+            width: 50,
+            height: 50,
+            borderRadius: "50%",
+            transform: "translate(-50%, -50%)",
+            border: "3px solid limegreen",
+            color: "red",
+            fontWeight: "bold",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            pointerEvents: "none",
+          }}
+          className="correct-guess"
+        >
+          X
+        </div>
+      ))}
       {visible && (
         <>
           <div
             style={{
               position: "absolute",
-              left: position.x + 10, // offset so it doesn’t sit directly under cursor
-              top: position.y + 10,
+              left: position.x, // offset so it doesn’t sit directly under cursor
+              top: position.y,
               width: 50,
               height: 50,
               borderRadius: "50%",
               pointerEvents: "none", // allows clicking through the div
-              transform: "translate(-50%, -50%)", // optional: center on cursor
+              transform: "translate(-50%, -50%)",
             }}
             className="cursor-circle"
           ></div>
-          <div
+          <button
             style={{
               position: "absolute",
               left: position.x + 40, // offset so it doesn’t sit directly under cursor
@@ -76,15 +114,19 @@ function DisplayCursorCircle({ puzzle }) {
               //   borderRadius: "50%",
               //   pointerEvents: "none", // allows clicking through the div
               //   transform: "translate(-50%, -50%)", // optional: center on cursor
+              display: guesses.some((g) => g.index === 0) ? "none" : "flex",
             }}
             className="cursor-square"
+            onClick={() =>
+              calculateGuess(position, characters[0].coordinates, 0)
+            }
           >
-            <div className="cursor-square-image">
+            <span className="cursor-square-image">
               <img src={characters[0].image} alt="" />
-            </div>
-            <div className="cursor-square-name">{characters[0].name}</div>
-          </div>
-          <div
+            </span>
+            <span className="cursor-square-name">{characters[0].name}</span>
+          </button>
+          <button
             style={{
               position: "absolute",
               left: position.x + 40, // offset so it doesn’t sit directly under cursor
@@ -94,15 +136,19 @@ function DisplayCursorCircle({ puzzle }) {
               //   borderRadius: "50%",
               //   pointerEvents: "none", // allows clicking through the div
               //   transform: "translate(-50%, -50%)", // optional: center on cursor
+              display: guesses.some((g) => g.index === 1) ? "none" : "flex",
             }}
             className="cursor-square"
+            onClick={() =>
+              calculateGuess(position, characters[1].coordinates, 1)
+            }
           >
-            <div className="cursor-square-image">
+            <span className="cursor-square-image">
               <img src={characters[1].image} alt="" />
-            </div>
-            <div className="cursor-square-name">{characters[1].name}</div>
-          </div>
-          <div
+            </span>
+            <span className="cursor-square-name">{characters[1].name}</span>
+          </button>
+          <button
             style={{
               position: "absolute",
               left: position.x + 40, // offset so it doesn’t sit directly under cursor
@@ -112,15 +158,19 @@ function DisplayCursorCircle({ puzzle }) {
               //   borderRadius: "50%",
               //   pointerEvents: "none", // allows clicking through the div
               //   transform: "translate(-50%, -50%)", // optional: center on cursor
+              display: guesses.some((g) => g.index === 2) ? "none" : "flex",
             }}
             className="cursor-square"
+            onClick={() =>
+              calculateGuess(position, characters[2].coordinates, 2)
+            }
           >
-            <div className="cursor-square-image">
+            <span className="cursor-square-image">
               {" "}
               <img src={characters[2].image} alt="" />
-            </div>
-            <div className="cursor-square-name">{characters[2].name}</div>
-          </div>
+            </span>
+            <span className="cursor-square-name">{characters[2].name}</span>
+          </button>
         </>
       )}
     </>

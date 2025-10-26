@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import "normalize.css";
 
 import "./App.css";
 

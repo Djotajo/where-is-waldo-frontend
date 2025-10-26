@@ -9,8 +9,8 @@ function DisplayPuzzle() {
 
   const imageMap = {
     puzzle01: "/bruegel1.jpg",
-    puzzle2: "/bruegel2.jpg",
-    puzzle3: "/const.jpg",
+    puzzle02: "/bruegel2.jpg",
+    puzzle03: "/const.jpg",
   };
 
   useEffect(() => {
@@ -42,8 +42,9 @@ function DisplayPuzzle() {
     <>
       <div className="puzzle">
         <img src={image} alt="" className="puzzle-img" />
+        <DisplayCursorCircle puzzle={puzzle} />
       </div>
-      <DisplayCursorCircle puzzle={puzzle} />
+      {/* <DisplayCursorCircle puzzle={puzzle} /> */}
 
       {/* {post.Comment.map((comment, index) => (
         <article key={comment.id || index} className="full-post-comment">

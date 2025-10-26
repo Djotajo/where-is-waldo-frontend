@@ -105,14 +105,17 @@ nav h1 {
 }
 
 .puzzle {
-  padding-top: 10vh;
+  margin-top: 10vh;
   width: 100vw;
   height: auto;
+  position: relative;
+  display: inline-block;
 }
 
 .puzzle-img {
   width: 100%;
   height: 100%;
+  display: block;
 }
 
 .cursor-circle {
