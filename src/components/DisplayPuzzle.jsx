@@ -2,10 +2,12 @@ import { useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
 
 import DisplayCursorCircle from "./DisplayCursorCircle";
+import Timer from "./Timer";
 
 function DisplayPuzzle() {
   const [puzzle, setPuzzle] = useState(null);
   const { puzzleId } = useParams();
+  const start = Date.now();
 
   const imageMap = {
     puzzle01: "/bruegel1.jpg",
@@ -41,8 +43,9 @@ function DisplayPuzzle() {
   return (
     <>
       <div className="puzzle">
+        <Timer />
         <img src={image} alt="" className="puzzle-img" />
-        <DisplayCursorCircle puzzle={puzzle} />
+        <DisplayCursorCircle puzzle={puzzle} start={start} />
       </div>
       {/* <DisplayCursorCircle puzzle={puzzle} /> */}
 

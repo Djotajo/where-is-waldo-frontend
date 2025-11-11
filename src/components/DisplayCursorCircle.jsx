@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function DisplayCursorCircle({ puzzle }) {
+function DisplayCursorCircle({ puzzle, start }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [visible, setVisible] = useState(false);
   const [characters, setCharacters] = useState(
     puzzle.characters.sort((a, b) => Number(a.id) - Number(b.id))
   );
   const [guesses, setGuesses] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,6 +23,8 @@ function DisplayCursorCircle({ puzzle }) {
       const y = event.pageY - rect.top - window.scrollY;
 
       console.log(characters);
+      console.log(x);
+      console.log(y);
 
       setPosition({ x, y });
 
@@ -37,15 +40,18 @@ function DisplayCursorCircle({ puzzle }) {
   }, [characters]);
 
   const calculateGuess = (clickPosition, charPosition, index) => {
+    const img = document.querySelector("img"); // or use a ref if you have one
+
     console.log("calculate guess");
     console.log(clickPosition);
     console.log(charPosition);
+    console.log(charPosition.y);
 
     if (
-      clickPosition.x >= charPosition.x - 15 &&
-      clickPosition.x <= charPosition.x + 15 &&
-      clickPosition.y >= charPosition.y - 15 &&
-      clickPosition.y <= charPosition.y + 15
+      clickPosition.x >= charPosition.x * img.clientWidth - 15 &&
+      clickPosition.x <= charPosition.x * img.clientWidth + 15 &&
+      clickPosition.y >= charPosition.y * img.clientHeight - 15 &&
+      clickPosition.y <= charPosition.y * img.clientHeight + 15
     ) {
       console.log("BINGO");
 
@@ -53,6 +59,9 @@ function DisplayCursorCircle({ puzzle }) {
         const newGuesses = [...prev, { index, pos: clickPosition }];
         if (newGuesses.length === 3) {
           console.log("TOTAL BINGO");
+          const finish = Date.now();
+          const score = finish - start;
+          console.log(`${score / 1000} seconds`);
 
           //   DODATI FORMU ZA UNOS PODATAKA U LEADERBOARD
           navigate("/");
