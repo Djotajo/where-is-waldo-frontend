@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import SubmitScore from "./SubmitScore";
 
 function DisplayCursorCircle({ puzzle, start }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -8,6 +9,8 @@ function DisplayCursorCircle({ puzzle, start }) {
     puzzle.characters.sort((a, b) => Number(a.id) - Number(b.id))
   );
   const [guesses, setGuesses] = useState([]);
+  const [completed, setCompleted] = useState(false);
+  const [score, setScore] = useState(0);
 
   const navigate = useNavigate();
 
@@ -60,11 +63,12 @@ function DisplayCursorCircle({ puzzle, start }) {
         if (newGuesses.length === 3) {
           console.log("TOTAL BINGO");
           const finish = Date.now();
-          const score = finish - start;
+          setScore(finish - start);
           console.log(`${score / 1000} seconds`);
+          setCompleted(true);
 
           //   DODATI FORMU ZA UNOS PODATAKA U LEADERBOARD
-          navigate("/");
+          // navigate("/");
         }
         return newGuesses;
       });
@@ -74,6 +78,7 @@ function DisplayCursorCircle({ puzzle, start }) {
 
   return (
     <>
+      {completed && <SubmitScore score={score} />}
       {guesses.map((guess) => (
         <div
           key={guess.index}

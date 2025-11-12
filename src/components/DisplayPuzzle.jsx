@@ -18,7 +18,6 @@ function DisplayPuzzle() {
   useEffect(() => {
     async function fetchPostData() {
       const link = "http://localhost:3000";
-      console.log(puzzleId);
 
       const response = await fetch(`${link}/puzzle/${puzzleId}`);
       // CHANGE WHEN PUZZLES INSERTED IN DB

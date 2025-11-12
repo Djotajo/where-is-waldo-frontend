@@ -233,3 +233,47 @@ nav h1 {
   font-weight: 700;
   font-size: 1.5em;
 }
+
+.login-fullscreen {
+  min-height: calc(100vh - 5vh);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 1em;
+  background-color: #eaeaf2;
+  align-items: center;
+}
+
+.login-fullscreen a {
+  margin-bottom: 5vh;
+}
+
+/* The signup form box */
+.login-form,
+.new-member-form {
+  background-color: #fff;
+  padding: 2rem 2.5rem;
+  margin-top: 15vh;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-fullscreen a {
+  display: block;
+  margin-top: 1rem;
+  text-align: center;
+  color: #1e1e2f;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.login-fullscreen a:hover {
+  text-decoration: underline;
+}
