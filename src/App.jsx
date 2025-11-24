@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import "normalize.css";
 
@@ -10,6 +9,7 @@ import "./App.css";
 import Home from "./components/home";
 import DisplayPuzzle from "./components/DisplayPuzzle";
 import Leaderboards from "./components/Leaderboards";
+import SubmitScore from "./components/SubmitScore";
 
 function App() {
   return <AppContent />;
@@ -43,6 +43,7 @@ function AppContent() {
         <Route path="/" element={<Home />} />
         <Route path="/leaderboards" element={<Leaderboards />} />
         <Route path="/puzzle/:puzzleId" element={<DisplayPuzzle />} />
+        {/* <Route path="/puzzle/:puzzleId/submitScore" element={<SubmitScore />} /> */}
 
         {/* <Route
           path="/puzzle/test"

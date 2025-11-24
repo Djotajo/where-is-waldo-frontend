@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SubmitScore from "./SubmitScore";
 
-function DisplayCursorCircle({ puzzle, start }) {
+function DisplayCursorCircle({ puzzle, start, onGameFinish }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [visible, setVisible] = useState(false);
   const [characters, setCharacters] = useState(
@@ -12,6 +12,13 @@ function DisplayCursorCircle({ puzzle, start }) {
   const [completed, setCompleted] = useState(false);
   const [score, setScore] = useState(0);
 
+  const [message, setMessage] = useState("");
+
+  const handleWrongGuess = () => {
+    setMessage("Wrong!");
+    setTimeout(() => setMessage(""), 2000); // hide after 2 seconds
+  };
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,7 +26,7 @@ function DisplayCursorCircle({ puzzle, start }) {
       const img = document.querySelector("img"); // or use a ref if you have one
       if (!img) return;
 
-      if (event.target.closest("button.cursor-square")) return;
+      // if (event.target.closest("button.cursor-square")) return;
 
       const rect = event.target.getBoundingClientRect();
       const x = event.pageX - rect.left - window.scrollX;
@@ -51,10 +58,10 @@ function DisplayCursorCircle({ puzzle, start }) {
     console.log(charPosition.y);
 
     if (
-      clickPosition.x >= charPosition.x * img.clientWidth - 15 &&
-      clickPosition.x <= charPosition.x * img.clientWidth + 15 &&
-      clickPosition.y >= charPosition.y * img.clientHeight - 15 &&
-      clickPosition.y <= charPosition.y * img.clientHeight + 15
+      clickPosition.x >= charPosition.x * img.clientWidth - 20 &&
+      clickPosition.x <= charPosition.x * img.clientWidth + 20 &&
+      clickPosition.y >= charPosition.y * img.clientHeight - 20 &&
+      clickPosition.y <= charPosition.y * img.clientHeight + 20
     ) {
       console.log("BINGO");
 
@@ -67,11 +74,15 @@ function DisplayCursorCircle({ puzzle, start }) {
           console.log(`${score / 1000} seconds`);
           setCompleted(true);
 
+          onGameFinish();
+
           //   DODATI FORMU ZA UNOS PODATAKA U LEADERBOARD
-          // navigate("/");
+          // navigate(`/puzzle/${puzzleId}`);
         }
         return newGuesses;
       });
+    } else {
+      handleWrongGuess();
     }
     return;
   };
@@ -79,6 +90,8 @@ function DisplayCursorCircle({ puzzle, start }) {
   return (
     <>
       {completed && <SubmitScore score={score} />}
+      {message && <div className="guess-message">{message}</div>}
+
       {guesses.map((guess) => (
         <div
           key={guess.index}
@@ -123,11 +136,6 @@ function DisplayCursorCircle({ puzzle, start }) {
               position: "absolute",
               left: position.x + 40, // offset so it doesn’t sit directly under cursor
               top: position.y - 10,
-              //   width: 50,
-              //   height: 50,
-              //   borderRadius: "50%",
-              //   pointerEvents: "none", // allows clicking through the div
-              //   transform: "translate(-50%, -50%)", // optional: center on cursor
               display: guesses.some((g) => g.index === 0) ? "none" : "flex",
             }}
             className="cursor-square"
@@ -144,12 +152,9 @@ function DisplayCursorCircle({ puzzle, start }) {
             style={{
               position: "absolute",
               left: position.x + 40, // offset so it doesn’t sit directly under cursor
-              top: position.y + 40,
-              //   width: 50,
-              //   height: 50,
-              //   borderRadius: "50%",
-              //   pointerEvents: "none", // allows clicking through the div
-              //   transform: "translate(-50%, -50%)", // optional: center on cursor
+              // top: position.y + 40,
+              top: position.y + 80,
+
               display: guesses.some((g) => g.index === 1) ? "none" : "flex",
             }}
             className="cursor-square"
@@ -166,12 +171,9 @@ function DisplayCursorCircle({ puzzle, start }) {
             style={{
               position: "absolute",
               left: position.x + 40, // offset so it doesn’t sit directly under cursor
-              top: position.y + 90,
-              //   width: 50,
-              //   height: 50,
-              //   borderRadius: "50%",
-              //   pointerEvents: "none", // allows clicking through the div
-              //   transform: "translate(-50%, -50%)", // optional: center on cursor
+              // top: position.y + 90,
+              top: position.y + 170,
+
               display: guesses.some((g) => g.index === 2) ? "none" : "flex",
             }}
             className="cursor-square"

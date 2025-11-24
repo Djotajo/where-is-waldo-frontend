@@ -28,7 +28,7 @@ function SubmitScore({ score }) {
         body: JSON.stringify(userData),
       });
 
-      navigate("/");
+      navigate("/leaderboards");
     } catch (error) {
       console.error("Error while submitting score:", error);
     }
@@ -48,6 +48,7 @@ function SubmitScore({ score }) {
           onChange={(e) => setUsername(e.target.value)}
           value={username}
           required
+          autoFocus
         />
         <button type="submit">Submit your score</button>
       </form>

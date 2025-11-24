@@ -8,6 +8,7 @@ function DisplayPuzzle() {
   const [puzzle, setPuzzle] = useState(null);
   const { puzzleId } = useParams();
   const start = Date.now();
+  const [gameFinished, setGameFinished] = useState(false);
 
   const imageMap = {
     puzzle01: "/bruegel1.jpg",
@@ -42,9 +43,14 @@ function DisplayPuzzle() {
   return (
     <>
       <div className="puzzle">
-        <Timer />
+        <Timer stopped={gameFinished} />
+
         <img src={image} alt="" className="puzzle-img" />
-        <DisplayCursorCircle puzzle={puzzle} start={start} />
+        <DisplayCursorCircle
+          puzzle={puzzle}
+          start={start}
+          onGameFinish={() => setGameFinished(true)}
+        />
       </div>
       {/* <DisplayCursorCircle puzzle={puzzle} /> */}
 
