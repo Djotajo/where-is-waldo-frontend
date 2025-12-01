@@ -16,25 +16,17 @@ function DisplayCursorCircle({ puzzle, start, onGameFinish }) {
 
   const handleWrongGuess = () => {
     setMessage("Wrong!");
-    setTimeout(() => setMessage(""), 2000); // hide after 2 seconds
+    setTimeout(() => setMessage(""), 2000);
   };
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const handleMouseClick = (event) => {
-      const img = document.querySelector("img"); // or use a ref if you have one
+      const img = document.querySelector("img");
       if (!img) return;
-
-      // if (event.target.closest("button.cursor-square")) return;
 
       const rect = event.target.getBoundingClientRect();
       const x = event.pageX - rect.left - window.scrollX;
       const y = event.pageY - rect.top - window.scrollY;
-
-      console.log(characters);
-      console.log(x);
-      console.log(y);
 
       setPosition({ x, y });
 
@@ -43,19 +35,13 @@ function DisplayCursorCircle({ puzzle, start, onGameFinish }) {
 
     window.addEventListener("click", handleMouseClick);
 
-    // Cleanup
     return () => {
       window.removeEventListener("click", handleMouseClick);
     };
   }, [characters]);
 
   const calculateGuess = (clickPosition, charPosition, index) => {
-    const img = document.querySelector("img"); // or use a ref if you have one
-
-    console.log("calculate guess");
-    console.log(clickPosition);
-    console.log(charPosition);
-    console.log(charPosition.y);
+    const img = document.querySelector("img");
 
     if (
       clickPosition.x >= charPosition.x * img.clientWidth - 20 &&
@@ -63,21 +49,14 @@ function DisplayCursorCircle({ puzzle, start, onGameFinish }) {
       clickPosition.y >= charPosition.y * img.clientHeight - 20 &&
       clickPosition.y <= charPosition.y * img.clientHeight + 20
     ) {
-      console.log("BINGO");
-
       setGuesses((prev) => {
         const newGuesses = [...prev, { index, pos: clickPosition }];
         if (newGuesses.length === 3) {
-          console.log("TOTAL BINGO");
           const finish = Date.now();
           setScore(finish - start);
-          console.log(`${score / 1000} seconds`);
           setCompleted(true);
 
           onGameFinish();
-
-          //   DODATI FORMU ZA UNOS PODATAKA U LEADERBOARD
-          // navigate(`/puzzle/${puzzleId}`);
         }
         return newGuesses;
       });
@@ -121,12 +100,12 @@ function DisplayCursorCircle({ puzzle, start, onGameFinish }) {
           <div
             style={{
               position: "absolute",
-              left: position.x, // offset so it doesn’t sit directly under cursor
+              left: position.x,
               top: position.y,
               width: 50,
               height: 50,
               borderRadius: "50%",
-              pointerEvents: "none", // allows clicking through the div
+              pointerEvents: "none",
               transform: "translate(-50%, -50%)",
             }}
             className="cursor-circle"
@@ -134,7 +113,7 @@ function DisplayCursorCircle({ puzzle, start, onGameFinish }) {
           <button
             style={{
               position: "absolute",
-              left: position.x + 40, // offset so it doesn’t sit directly under cursor
+              left: position.x + 40,
               top: position.y - 10,
               display: guesses.some((g) => g.index === 0) ? "none" : "flex",
             }}
@@ -151,8 +130,7 @@ function DisplayCursorCircle({ puzzle, start, onGameFinish }) {
           <button
             style={{
               position: "absolute",
-              left: position.x + 40, // offset so it doesn’t sit directly under cursor
-              // top: position.y + 40,
+              left: position.x + 40,
               top: position.y + 80,
 
               display: guesses.some((g) => g.index === 1) ? "none" : "flex",
@@ -170,8 +148,7 @@ function DisplayCursorCircle({ puzzle, start, onGameFinish }) {
           <button
             style={{
               position: "absolute",
-              left: position.x + 40, // offset so it doesn’t sit directly under cursor
-              // top: position.y + 90,
+              left: position.x + 40,
               top: position.y + 170,
 
               display: guesses.some((g) => g.index === 2) ? "none" : "flex",

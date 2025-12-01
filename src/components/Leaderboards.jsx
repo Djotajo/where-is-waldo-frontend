@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 
 function Leaderboards() {
   const [leaderboard01, setLeaderboard01] = useState(null);
@@ -7,20 +6,13 @@ function Leaderboards() {
 
   const [leaderboard03, setLeaderboard03] = useState(null);
 
-  // const { puzzleId } = useParams();
-
   useEffect(() => {
     async function fetchPostData() {
       const link = "http://localhost:3000";
 
-      // const response = await fetch(`${link}/puzzle/${puzzleId}/leaderboard`);
-      // CHANGE WHEN PUZZLES INSERTED IN DB
-      // const response = await fetch(`${link}/puzzle/test`);
-      // const response = await fetch(`${link}/puzzle/puzzle03/leaderboard`);
       const response = await fetch(`${link}/leaderboards`);
 
       const responseJson = await response.json();
-      console.log(responseJson);
       setLeaderboard01(
         responseJson[2].players.sort((a, b) => a.score - b.score)
       );
