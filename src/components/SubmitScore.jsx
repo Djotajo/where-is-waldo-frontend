@@ -18,7 +18,8 @@ function SubmitScore({ score }) {
     };
 
     try {
-      const link = "http://localhost:3000";
+      //   const link = "http://localhost:3000";
+      const link = "https://where-is-waldo-backend-5hcc.onrender.com";
 
       await fetch(`${link}/puzzle/${puzzleId}/leaderboard`, {
         method: "POST",

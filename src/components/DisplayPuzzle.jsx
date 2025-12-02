@@ -18,7 +18,8 @@ function DisplayPuzzle() {
 
   useEffect(() => {
     async function fetchPostData() {
-      const link = "http://localhost:3000";
+      // const link = "http://localhost:3000";
+      const link = "https://where-is-waldo-backend-5hcc.onrender.com";
 
       const response = await fetch(`${link}/puzzle/${puzzleId}`);
 
